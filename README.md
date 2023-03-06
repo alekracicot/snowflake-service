@@ -10,7 +10,7 @@ pip install sqlalchemy
 ```
 
 ## setup
-Modify the file credentials.json to add your credentials adn then run in the local directory:
+Modify the file settings.py to add your credentials adn then run in the local directory:
 ```
 python setup.py install
 ```
