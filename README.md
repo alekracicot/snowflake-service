@@ -2,7 +2,7 @@
 Minimalist Snowflake Service With Stored Credentials
 
 ## dependencies 
-run the following pip commands 
+install the necessary dependencies, I had to run the following pip commands 
 ```
 pip install "snowflake-connector-python[secure-local-storage,pandas]"
 pip install snowflake.sqlalchemy
