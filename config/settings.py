@@ -13,7 +13,7 @@ class SnowflakeSettings:
     role: str
 
 def get_snowflake_settings() -> SnowflakeSettings:
-    with open('config/private_settings.json') as f:
+    with open('config/credentials.json') as f:
         settings = json.load(f)
     return SnowflakeSettings(**settings)
 

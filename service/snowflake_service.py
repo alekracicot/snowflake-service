@@ -2,6 +2,7 @@ import pandas as pd
 import snowflake.connector
 
 from config import settings
+from snowflake.connector.pandas_tools import write_pandas, pd_writer
 from snowflake.sqlalchemy import URL
 from sqlalchemy import create_engine
 
@@ -71,7 +72,7 @@ class SnowflakeService:
 
     def create_table(self, df: pd.DataFrame, db: str,
                      schema: str, table: str) -> None:
-            
+        
         engine = create_engine(URL(
             account = self.account,
             user = self.user,
@@ -80,12 +81,17 @@ class SnowflakeService:
             schema = schema,
             warehouse = self.warehouse,
             role=self.role))
+        
+        try:
+            df.to_sql(table, con=engine, index=False, method=pd_writer)
 
-        df.to_sql(table, con=engine, index=False, method='pd_writer')
+        except ValueError:
+            print('Verify if table exists')
+
         engine.dispose()
 
-    def push_to_snowflake(self, df: pd.DataFrame,
-                          table: str) -> None:
+    def push_to_snowflake(self, df: pd.DataFrame, db: str,
+                          schema: str, table: str) -> None:
         """Push a pandas DataFrame based on dtypes
 
         Args:
@@ -94,7 +100,7 @@ class SnowflakeService:
         """
 
         cnx = self.connection
+        cnx.cursor().execute(f"USE DATABASE {db}")
+        cnx.cursor().execute(f"USE SCHEMA {schema}")
         success, nchunks, nrows, _ = write_pandas(cnx, df, table)
-        return success, nchunks, nrows, _
-
-snowflake_service = SnowflakeService()
+        print(success, nchunks, nrows, _)
