@@ -18,7 +18,7 @@ python setup.py install
 ## usage 
 ```python 
 import pandas as pd
-from service.snowflake_service import SnowflakeService
+from snowflake_service import SnowflakeService
 
 snowflake = SnowflakeService()
 snowflake.connect()
