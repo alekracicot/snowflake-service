@@ -1,6 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(name='snowflake_service',
       version='1.0',
       author='Uzumaki Naruto',
-      packages=find_packages())
+      packages=['snowflake_service']
+      )

@@ -1,7 +1,7 @@
 import pandas as pd
 import snowflake.connector
 
-from config import settings
+from snowflake_service.settings import settings
 from snowflake.connector.pandas_tools import write_pandas, pd_writer
 from snowflake.sqlalchemy import URL
 from sqlalchemy import create_engine
